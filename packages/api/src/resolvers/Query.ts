@@ -1,13 +1,12 @@
 import { IResolverObject } from 'apollo-server-express';
-import { photos, users } from '../models';
 
 export const Query: IResolverObject = {
-  totalPhotos: () => photos.length,
-  getPhotos: (parent, { input }) => {
-    const { after } = input;
-    return photos.filter(({ created }) => new Date(created) > after);
+  totalPhotos: (_, args, { db }) =>
+    db.collection('photos').estimatedDocumentCount(),
+  allPhotos: (_, { input }, { db }) => {
+    db.collection('photos').find().toArray();
   },
-  getUsers: () => users,
-  getUser: (_, { input }) =>
-    users.find(({ githubLogin }) => githubLogin === input.githubLogin),
+  totalUsers: (_, args, { db }) =>
+    db.collection('users').estimatedDocumentCount(),
+  allUsers: (_, args, { db }) => db.collection('users').find().toArray(),
 };

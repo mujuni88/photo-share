@@ -44,9 +44,9 @@ type User {
 }
 type Query {
   totalPhotos: Int!
-  getPhotos(input: PhotoFilter): [Photo!]!
-  getUsers: [User!]!
-  getUser(input: UserInput!): User
+  allPhotos(input: PhotoFilter): [Photo!]!
+  totalUsers: Int!
+  allUsers(input: UserInput!): [User!]!
 }
 
 type Mutation {
