@@ -4,11 +4,19 @@
     "module": "commonjs",                    
     "lib": ["es6"],                     
     "allowJs": true,
-    "outDir": "build",                          
-    "rootDir": "src",
     "strict": true,         
     "noImplicitAny": true,
     "esModuleInterop": true,
-    "resolveJsonModule": true
-  }
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "outDir": "build",
+    "rootDir": "./",
+    "paths": {
+      "~/*": ["packages/*"]
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "build",
+  ]
 }

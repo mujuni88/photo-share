@@ -1,15 +1,17 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
+    ecmaVersion: 2018,
     project: './tsconfig.json',
+    sourceType: 'module', // Allows for the use of imports
   },
   plugins: ['@typescript-eslint'],
   extends: [
-    'plugin:react/recommended',
     'plugin:@typescript-eslint/recommended',
+    'plugin:prettier/recommended',
   ],
-  rules:  {
-    // Overwrite rules specified from the extended configs e.g. 
+  rules: {
+    // Overwrite rules specified from the extended configs e.g.
     // "@typescript-eslint/explicit-function-return-type": "off",
-  }
-}
+  },
+};
