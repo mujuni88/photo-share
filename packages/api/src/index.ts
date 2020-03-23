@@ -43,8 +43,6 @@ async function start(): Promise<void> {
     context,
   });
 
-  const DB_HOST = process.env.DB_HOST;
-
   server.applyMiddleware({ app });
 
   app.get('/', (req, res) => res.send('Welcome to PhotoShare API'));

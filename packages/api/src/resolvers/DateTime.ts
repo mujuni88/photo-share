@@ -3,6 +3,6 @@ import { GraphQLScalarType } from 'graphql';
 export const DateTime = new GraphQLScalarType({
   name: 'DateTime',
   description: 'A valid date time value',
-  parseValue: (value) => new Date(value),
-  serialize: (value) => new Date(value).toISOString(),
+  parseValue: (value): Date => new Date(value),
+  serialize: (value): string => new Date(value).toISOString(),
 });

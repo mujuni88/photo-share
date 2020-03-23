@@ -1,16 +1,16 @@
-enum PhotoCategory {
+export enum PhotoCategory {
   SELFIE = 'SELFIE',
   POTRAIT = 'POTRAIT',
   ACTION = 'ACTION',
   LANDSCAPE = 'LANDSCAPE',
   GRAPHIC = 'GRAPHIC',
 }
-interface User {
+export interface UserValue {
   githubLogin: string;
   name: string;
-  postedPhotos?: Photo[];
+  postedPhotos?: PhotoValue[];
 }
-interface Photo {
+export interface PhotoValue {
   id: string;
   name: string;
   description?: string;
@@ -20,7 +20,7 @@ interface Photo {
   created: string;
 }
 
-export const users: User[] = [
+export const users: UserValue[] = [
   { githubLogin: 'joe', name: 'Joe Buza' },
   { githubLogin: 'alan', name: 'Alan Souza' },
   { githubLogin: 'julien', name: 'Julien Horau' },
@@ -34,15 +34,17 @@ export const dates: string[] = [
   new Date().toISOString(),
 ];
 
-export const photos: Photo[] = users.map(({ githubLogin, name }, index) => ({
-  id: `${index}`,
-  url: `https://i.picsum.photos/id/911/200/30${index}.jpg`,
-  name,
-  description: name,
-  category: PhotoCategory.POTRAIT,
-  githubUser: githubLogin,
-  created: dates[index],
-}));
+export const photos: PhotoValue[] = users.map(
+  ({ githubLogin, name }, index) => ({
+    id: `${index}`,
+    url: `https://i.picsum.photos/id/911/200/30${index}.jpg`,
+    name,
+    description: name,
+    category: PhotoCategory.POTRAIT,
+    githubUser: githubLogin,
+    created: dates[index],
+  })
+);
 
 export const tags = photos.map(({ id }, index) => ({
   photoId: id,
