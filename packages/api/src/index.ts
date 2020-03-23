@@ -13,7 +13,7 @@ const typeDefs = readFileSync(
 );
 dotenv.config();
 
-async function start() {
+async function start(): Promise<void> {
   const app = express();
 
   const MONGO_DB = process.env.DB_HOST || '';
