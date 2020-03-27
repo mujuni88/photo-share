@@ -12,8 +12,7 @@
   "main": "build/index.js",
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1",
-    "start": "npm run build && node build/index.js",
-    "start:dev": "nodemon",
+    "start": "nodemon",
     "build": "rimraf ./build && tsc",
     "prettify": "prettier --write \"./*/**/*.{js,ts,tsx}\"",
     "lint": "tsc --noEmit && eslint --fix \"./*/**/*.{js,ts,tsx}\" && echo 'Lint complete.'"

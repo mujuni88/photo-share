@@ -1,5 +1,5 @@
 import { ApolloServer } from 'apollo-server-express';
-import express, { Request } from 'express';
+import express from 'express';
 import expressPlayground from 'graphql-playground-middleware-express';
 import { readFileSync } from 'fs';
 import { resolvers } from './resolvers';

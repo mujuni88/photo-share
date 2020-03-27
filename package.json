@@ -9,7 +9,6 @@
   },
   "scripts": {
     "lint": "lerna exec yarn lint",
-    "start": "lerna exec yarn start",
-    "start:dev": "lerna exec yarn start:dev"
+    "start": "lerna exec yarn start"
   }
 }

@@ -11,6 +11,7 @@ export interface AuthUser {
 }
 export interface User {
   githubLogin: string;
+  avatar: string;
   name: string;
   postedPhotos?: Photo[];
 }
