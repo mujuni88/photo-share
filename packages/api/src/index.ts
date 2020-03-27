@@ -1,26 +1,28 @@
 import { ApolloServer } from 'apollo-server-express';
-import express from 'express';
+import express, { Request } from 'express';
 import expressPlayground from 'graphql-playground-middleware-express';
 import { readFileSync } from 'fs';
 import { resolvers } from './resolvers';
 import path from 'path';
 import dotenv from 'dotenv';
-import { MongoClient } from 'mongodb';
+dotenv.config();
+
+import { MongoClient, Db } from 'mongodb';
+import { Context } from './ts/interfaces';
 
 const typeDefs = readFileSync(
   path.resolve(__dirname, './typeDefs.graphql'),
   'UTF-8'
 );
-dotenv.config();
 
 async function start(): Promise<void> {
   const app = express();
 
   const MONGO_DB = process.env.DB_HOST || '';
-  let db;
 
+  let db: Db;
   try {
-    const client = await MongoClient.connect(MONGO_DB, {
+    const client: MongoClient = await MongoClient.connect(MONGO_DB, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
@@ -33,14 +35,18 @@ async function start(): Promise<void> {
       exiting...
        
     `);
+    console.error(error);
     process.exit(1);
   }
 
-  const context = { db };
   const server = new ApolloServer({
     typeDefs,
     resolvers,
-    context,
+    context: async ({ req }): Promise<Context> => {
+      const githubToken = req.headers.authorization;
+      const currentUser = await db.collection('users').findOne({ githubToken });
+      return { db, currentUser };
+    },
   });
 
   server.applyMiddleware({ app });

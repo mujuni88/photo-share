@@ -1,6 +1,7 @@
 import { IResolverObject } from 'apollo-server-express';
 
 export const Query: IResolverObject = {
+  me: (_, args, { currentUser }) => currentUser,
   totalPhotos: (_, args, { db }) =>
     db.collection('photos').estimatedDocumentCount(),
   allPhotos: (_, args, { db }) => {

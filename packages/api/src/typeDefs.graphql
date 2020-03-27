@@ -12,7 +12,6 @@ input PostPhotoInput {
   name: String!
   description: String
   category: PhotoCategory = POTRAIT
-  githubUser: String!
 }
 
 input PhotoFilter {
@@ -20,8 +19,13 @@ input PhotoFilter {
 }
 
 input UserInput {
-  githubLogin: String!
+  githubLogin: String
   name: String
+}
+
+type AuthPayload {
+  token: String!
+  user: User!
 }
 
 type Photo {
@@ -30,7 +34,7 @@ type Photo {
   name: String!
   description: String
   category: PhotoCategory!
-  postedBy: User!
+  userID: User!
   taggedUsers: [User!]!
   created: DateTime!
 }
@@ -43,13 +47,17 @@ type User {
   inPhotos: [Photo!]!
 }
 type Query {
+  me: User
   totalPhotos: Int!
   allPhotos(input: PhotoFilter): [Photo!]!
   totalUsers: Int!
-  allUsers(input: UserInput!): [User!]!
+  allUsers(input: UserInput): [User!]!
 }
 
 type Mutation {
-  addPhoto(input: PostPhotoInput!): Photo!
+  postPhoto(input: PostPhotoInput!): Photo!
   addUser(input: UserInput!): User!
+  githubAuth(code: String!): AuthPayload
+  addFakeUsers(count: Int = 1): [User!]!
+  fakeUserAuth(githubLogin: ID!): AuthPayload!
 }
