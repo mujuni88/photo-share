@@ -1,18 +1,24 @@
 import React from 'react'
-import { Box } from 'grommet'
+import { Box, Button } from 'grommet'
 import { User } from '@photo-share/api/src/ts/interfaces'
 import { UserList } from './user-list'
 import { Query, QueryResult } from 'react-apollo'
 import { gql } from 'apollo-boost'
 import { isEmpty } from 'lodash/fp'
+import { AddFakeUsers } from '../add-fake-users/add-fake-users'
 
-const USERS_QUERY = gql`
+export const USERS_QUERY = gql`
   query allUsers {
     totalUsers
-    allUsers {
+    allUsers {...userInfo }
+    me {...userInfo }
+  }
+
+  fragment userInfo on User {
       name
+      githubLogin
       avatar
-    }
+
   }
 `
 type UsersProps = {
@@ -50,7 +56,12 @@ export const Users = () => (
         return <Empty />
       }
 
-      return <Success users={data.allUsers} totalUsers={data.totalUsers} />
+      return (
+        <>
+          <AddFakeUsers />
+          <Success users={data.allUsers} totalUsers={data.totalUsers} />
+        </>
+      )
     }}
   </Query>
 )

@@ -9,8 +9,8 @@ type Props = {
 
 export const UserList = ({ users }: Props) => (
   <Box tag="ul" direction="column">
-    {users.map(({ name, avatar }) => (
-      <UserItem name={name} avatar={avatar} />
+    {users.map(({ name, avatar, githubLogin }) => (
+      <UserItem key={githubLogin} name={name} avatar={avatar} />
     ))}
   </Box>
 )
