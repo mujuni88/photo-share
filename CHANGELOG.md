@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.5.0](https://github.com/mujuni88/photo-share/compare/v0.4.0...v0.5.0) (2020-04-10)
+
+
+### Features
+
+* user auth ([953463c](https://github.com/mujuni88/photo-share/commit/953463cdf257ee44448e6934796b4ecfa2c3c123))
+
+
+
+
+
 # [0.4.0](https://github.com/mujuni88/photo-share/compare/v0.3.0...v0.4.0) (2020-03-29)
 
 
