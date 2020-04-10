@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.7.0](https://github.com/mujuni88/photo-share/compare/v0.6.0...v0.7.0) (2020-04-10)
+
+
+### Features
+
+* **test:** importing all apollo from one place and testing ([d15ea88](https://github.com/mujuni88/photo-share/commit/d15ea8828c271571e7597171e0a2586f585ebe32))
+
+
+
+
+
 # [0.6.0](https://github.com/mujuni88/photo-share/compare/v0.5.0...v0.6.0) (2020-04-10)
 
 
