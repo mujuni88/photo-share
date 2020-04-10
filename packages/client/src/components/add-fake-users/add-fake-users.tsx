@@ -1,8 +1,8 @@
-import React from 'react'
-import { Box, Button } from 'grommet'
-import { Mutation, MutationResult } from 'react-apollo'
-import { gql } from 'apollo-boost'
-import { USERS_QUERY } from '../users'
+import React from 'react';
+import { Box, Button } from 'grommet';
+import { Mutation, MutationResult } from 'react-apollo';
+import { gql } from 'apollo-boost';
+import { USERS_QUERY } from '../users';
 
 export const ADD_FAKE_USERS_MUTATION = gql`
   mutation addFakeUsers($count: Int!) {
@@ -11,11 +11,11 @@ export const ADD_FAKE_USERS_MUTATION = gql`
       avatar
     }
   }
-`
+`;
 
 type AddFakeUsersVariables = {
-  count: number
-}
+  count: number;
+};
 
 export const AddFakeUsers = () => (
   <Mutation<MutationResult, AddFakeUsersVariables>
@@ -33,4 +33,4 @@ export const AddFakeUsers = () => (
       </Box>
     )}
   </Mutation>
-)
+);

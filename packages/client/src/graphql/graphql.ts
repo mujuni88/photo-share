@@ -1,4 +1,4 @@
-import ApolloClient from 'apollo-boost'
+import ApolloClient from 'apollo-boost';
 
 export const client = new ApolloClient({
   uri: 'http://localhost:4000/graphql',
@@ -8,6 +8,6 @@ export const client = new ApolloClient({
         ...context.headers,
         authorization: localStorage.getItem('token'),
       },
-    }))
+    }));
   },
-})
+});

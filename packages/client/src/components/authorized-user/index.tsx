@@ -1,1 +1,1 @@
-export * from './authorized-user'
+export * from './authorized-user';

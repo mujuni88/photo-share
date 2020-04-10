@@ -1,9 +1,9 @@
-import React, { ReactNode } from 'react'
-import { Box } from 'grommet'
+import React, { ReactNode } from 'react';
+import { Box } from 'grommet';
 
 type HomeLayoutProps = {
-  children: ReactNode
-}
+  children: ReactNode;
+};
 export const HomeLayout = ({ children }: HomeLayoutProps) => (
   <Box pad="large">{children}</Box>
-)
+);

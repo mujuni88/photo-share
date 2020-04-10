@@ -30,10 +30,32 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "format": "prettier --write \"./src/**/*.{ts,tsx}\""
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app",
+      "prettier",
+      "prettier/@typescript-eslint",
+      "prettier/react"
+    ],
+    "plugins": [
+      "unicorn",
+      "prettier"
+    ],
+    "rules": {
+      "prettier/prettier": "error",
+      "unicorn/filename-case": [
+        "error",
+        {
+          "case": "kebabCase",
+          "ignore": [
+            "^serviceWorker\\.ts$"
+          ]
+        }
+      ]
+    }
   },
   "browserslist": {
     "production": [
@@ -49,6 +71,10 @@
   },
   "devDependencies": {
     "@types/lodash": "4.14.149",
-    "@types/query-string": "6.3.0"
+    "@types/query-string": "6.3.0",
+    "eslint-config-prettier": "6.10.1",
+    "eslint-plugin-prettier": "3.1.2",
+    "eslint-plugin-unicorn": "18.0.1",
+    "prettier": "2.0.2"
   }
 }
