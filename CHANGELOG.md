@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0](https://github.com/mujuni88/photo-share/compare/v0.5.0...v0.6.0) (2020-04-10)
+
+
+### Features
+
+* moved to latest apollo modules ([378421a](https://github.com/mujuni88/photo-share/commit/378421aad3fe8f0eac81744f233f303ee8559e2e))
+
+
+
+
+
 # [0.5.0](https://github.com/mujuni88/photo-share/compare/v0.4.0...v0.5.0) (2020-04-10)
 
 
