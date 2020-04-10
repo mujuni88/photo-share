@@ -47,8 +47,6 @@ export const Success = ({ users, totalUsers }: UsersProps) => (
 export const Users = () => {
   const { loading, data, error } = useQuery(USERS_QUERY);
 
-  console.log(data)
-
   if (error) {
     return <Failure error={error} />;
   }

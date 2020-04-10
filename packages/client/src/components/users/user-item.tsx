@@ -5,7 +5,6 @@ import { User } from '@photo-share/api/src/ts/interfaces';
 type UserItemProps = Pick<User, 'name' | 'avatar'>;
 
 export const UserItem = ({ name, avatar }: UserItemProps) => {
-  console.log('name', name);
   return (
     <Box
       data-testid="user-item"
