@@ -8,7 +8,7 @@
     "lerna": "^3.20.2"
   },
   "scripts": {
-    "lint": "lerna exec yarn lint",
-    "start": "lerna exec yarn start"
+    "lint": "lerna run lint",
+    "start": "lerna run start"
   }
 }

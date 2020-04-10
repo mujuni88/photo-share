@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import queryString from 'query-string';
-import { gql } from 'apollo-boost';
 import { useMutation } from '@apollo/react-hooks';
 import { useLocation, useHistory } from 'react-router-dom';
 import { Me } from '../me/me';
 import { USERS_QUERY } from '../../components/users';
+import gql from 'graphql-tag';
 
 export const GITHUB_AUTH_MUTATION = gql`
   mutation githubAuth($code: String!) {

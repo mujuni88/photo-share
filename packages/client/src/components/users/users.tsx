@@ -1,9 +1,9 @@
 import React from 'react';
 import { Box } from 'grommet';
+import { useQuery } from '@apollo/react-hooks';
 import { User } from '@photo-share/api/src/ts/interfaces';
 import { UserList } from './user-list';
-import { Query, QueryResult } from 'react-apollo';
-import { gql } from 'apollo-boost';
+import gql from 'graphql-tag';
 import { isEmpty } from 'lodash/fp';
 import { AddFakeUsers } from '../add-fake-users/add-fake-users';
 
@@ -44,27 +44,24 @@ export const Success = ({ users, totalUsers }: UsersProps) => (
   </Box>
 );
 
-export const Users = () => (
-  <Query query={USERS_QUERY}>
-    {({ loading, data, error }: QueryResult) => {
-      if (error) {
-        return <Failure error={error} />;
-      }
+export const Users = () => {
+  const { loading, data, error } = useQuery(USERS_QUERY);
+  if (error) {
+    return <Failure error={error} />;
+  }
 
-      if (loading) {
-        return <Loading />;
-      }
+  if (loading) {
+    return <Loading />;
+  }
 
-      if (isEmpty(data)) {
-        return <Empty />;
-      }
+  if (isEmpty(data)) {
+    return <Empty />;
+  }
 
-      return (
-        <>
-          <AddFakeUsers />
-          <Success users={data.allUsers} totalUsers={data.totalUsers} />
-        </>
-      );
-    }}
-  </Query>
-);
+  return (
+    <>
+      <AddFakeUsers />
+      <Success users={data.allUsers} totalUsers={data.totalUsers} />
+    </>
+  );
+};

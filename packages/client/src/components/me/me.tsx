@@ -48,6 +48,7 @@ export const Me = ({ signingIn, requestCode }: MeProps) => {
         <Box>Loading... </Box>
       ) : (
         <Button
+          data-testId="signin"
           label="Sign In with Github"
           disabled={signingIn}
           onClick={requestCode}

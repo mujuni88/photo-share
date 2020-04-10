@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import fetch from 'node-fetch';
 
 export interface Credentials {

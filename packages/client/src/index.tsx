@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './app';
-import * as serviceWorker from './serviceWorker';
-import { ApolloProvider } from 'react-apollo';
+import * as serviceWorker from './service-worker';
 import { client } from './graphql';
+import { ApolloProvider } from '@apollo/react-hooks';
 
 ReactDOM.render(
   <React.StrictMode>
