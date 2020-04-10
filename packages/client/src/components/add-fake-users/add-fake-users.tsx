@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Button } from 'grommet';
 import gql from 'graphql-tag';
 import { USERS_QUERY } from '../users';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/client';
 
 export const ADD_FAKE_USERS_MUTATION = gql`
   mutation addFakeUsers($count: Int!) {

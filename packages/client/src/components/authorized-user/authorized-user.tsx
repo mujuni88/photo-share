@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import queryString from 'query-string';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/client';
 import { useLocation, useHistory } from 'react-router-dom';
 import { Me } from '../me/me';
 import { USERS_QUERY } from '../../components/users';

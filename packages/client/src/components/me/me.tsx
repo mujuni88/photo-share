@@ -1,5 +1,5 @@
 import React from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import { Box, Image, Button } from 'grommet';
 import { User } from '@photo-share/api/src/ts/interfaces';
 import { USERS_QUERY } from '../../components/users';

@@ -1,6 +1,8 @@
 import React from 'react';
-import { render, findByTestId } from '@testing-library/react';
-import { MockedProvider } from '@apollo/react-testing';
+import wait from 'waait';
+import { render, screen, act } from '@testing-library/react';
+import { MockedProvider } from '@apollo/client/testing';
+import faker from 'faker';
 
 // The component AND the query need to be exported
 import { USERS_QUERY, Users } from './';
@@ -9,25 +11,29 @@ const mocks = [
   {
     request: {
       query: USERS_QUERY,
-      variables: {
-        code: 'test',
-      },
     },
-    result: {
+    result: () => ({
       data: {
-        totalUsers: 4,
+        totalUsers: faker.fake.length,
         allUsers: [
           {
-            name: 'Joe',
-            githubLogin: 'joebm08',
+            name: faker.name.findName(),
+            githubLogin: faker.internet.userName(),
+            avatar: faker.internet.avatar(),
           },
           {
-            name: 'John',
-            githubLogin: 'johnBm',
+            name: faker.name.findName(),
+            githubLogin: faker.internet.userName(),
+            avatar: faker.internet.avatar(),
           },
         ],
+        me: {
+          name: faker.name.findName(),
+          githubLogin: faker.internet.userName(),
+          avatar: faker.internet.avatar(),
+        },
       },
-    },
+    }),
   },
 ];
 
@@ -39,8 +45,69 @@ describe('users', () => {
       </MockedProvider>
     );
 
-    const signInText = await findByTestId(container, 'signin');
+    expect(screen.getByText(/loading/i)).toBeTruthy();
 
-    expect(signInText).toBeTruthy();
+    await act(async () => await wait(0));
+
+    expect(container).toMatchInlineSnapshot(`
+      <div>
+        <div
+          class="StyledBox-sc-13pk1d4-0 iblEOj"
+        >
+          <button
+            class="StyledButton-sc-323bzc-0 iuDhZQ"
+            type="button"
+          >
+            Add Fake User
+          </button>
+        </div>
+        <div
+          class="StyledBox-sc-13pk1d4-0 eowHFX"
+        >
+          <h3
+            class="StyledBox-sc-13pk1d4-0 jJdKAu"
+          >
+            Total Users 
+            1
+          </h3>
+          <ul
+            class="StyledBox-sc-13pk1d4-0 jJdKAu"
+          >
+            <li
+              class="StyledBox-sc-13pk1d4-0 cARVMe"
+              data-testid="user-item"
+            >
+              <div
+                class="StyledBox-sc-13pk1d4-0 bAPboM"
+              >
+                <img
+                  alt="Avatar"
+                  class="StyledImage-ey4zx9-0 dQECSV"
+                />
+              </div>
+              <span
+                class="StyledBox-sc-13pk1d4-0 jJdKAu"
+              />
+            </li>
+            <li
+              class="StyledBox-sc-13pk1d4-0 cARVMe"
+              data-testid="user-item"
+            >
+              <div
+                class="StyledBox-sc-13pk1d4-0 bAPboM"
+              >
+                <img
+                  alt="Avatar"
+                  class="StyledImage-ey4zx9-0 dQECSV"
+                />
+              </div>
+              <span
+                class="StyledBox-sc-13pk1d4-0 jJdKAu"
+              />
+            </li>
+          </ul>
+        </div>
+      </div>
+    `);
   });
 });

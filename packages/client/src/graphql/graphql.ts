@@ -1,54 +1,28 @@
-import { ApolloClient } from 'apollo-client';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { HttpLink } from 'apollo-link-http';
-import { onError } from 'apollo-link-error';
-import { ApolloLink, Observable, Operation } from 'apollo-link';
+import {
+  ApolloClient,
+  HttpLink,
+  ApolloLink,
+  concat,
+  InMemoryCache,
+} from '@apollo/client';
 
-const request = async (operation: Operation) => {
-  const token = await localStorage.getItem('token');
+const httpLink = new HttpLink({
+  uri: 'http://localhost:4000/graphql',
+  credentials: 'same-origin',
+});
+
+const authMiddleware = new ApolloLink((operation, forward) => {
+  // add the authorization to the headers
   operation.setContext({
     headers: {
-      authorization: token,
+      authorization: localStorage.getItem('token') || null,
     },
   });
-};
-const requestLink = new ApolloLink(
-  (operation, forward) =>
-    new Observable((observer) => {
-      let handle: any;
-      Promise.resolve(operation)
-        .then((oper) => request(oper))
-        .then(() => {
-          handle = forward(operation).subscribe({
-            next: observer.next.bind(observer),
-            error: observer.error.bind(observer),
-            complete: observer.complete.bind(observer),
-          });
-        })
-        .catch(observer.error.bind(observer));
 
-      return () => {
-        if (handle) handle.unsubscribe();
-      };
-    })
-);
+  return forward(operation);
+});
 
 export const client = new ApolloClient({
-  link: ApolloLink.from([
-    onError(({ graphQLErrors, networkError }) => {
-      if (graphQLErrors)
-        graphQLErrors.forEach(({ message, locations, path }) =>
-          console.log(
-            `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
-          )
-        );
-      if (networkError) console.log(`[Network error]: ${networkError}`);
-    }),
-    requestLink,
-    new HttpLink({
-      uri: 'http://localhost:4000/graphql',
-      credentials: 'same-origin',
-    }),
-  ]),
+  link: concat(authMiddleware, httpLink),
   cache: new InMemoryCache(),
 });
