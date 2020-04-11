@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Button } from 'grommet';
 import gql from 'graphql-tag';
-import { USERS_QUERY } from '../users';
+import { USERS_QUERY, Users } from '../users';
 import { useMutation } from '@apollo/client';
 
 export const ADD_FAKE_USERS_MUTATION = gql`
@@ -9,6 +9,7 @@ export const ADD_FAKE_USERS_MUTATION = gql`
     addFakeUsers(count: $count) {
       name
       avatar
+      githubLogin
     }
   }
 `;
@@ -19,7 +20,21 @@ type AddFakeUsersVariables = {
 
 export const AddFakeUsers = () => {
   const [addFakeUsers] = useMutation(ADD_FAKE_USERS_MUTATION, {
-    refetchQueries: [{ query: USERS_QUERY }],
+    update(cache, { data: { addFakeUsers } }) {
+      const data = cache.readQuery<Users>({
+        query: USERS_QUERY,
+      });
+
+      cache.writeQuery({
+        query: USERS_QUERY,
+        data: {
+          totalUsers: data?.totalUsers + addFakeUsers.length,
+          allUsers: data?.allUsers
+            ? [...data?.allUsers, ...addFakeUsers]
+            : [addFakeUsers],
+        },
+      });
+    },
   });
 
   return (

@@ -1,24 +1,18 @@
 import React from 'react';
-import { useQuery } from '@apollo/client';
+import { useQuery, useApolloClient } from '@apollo/client';
 import { Box, Image, Button } from 'grommet';
 import { User } from '@photo-share/api/src/ts/interfaces';
 import { USERS_QUERY } from '../../components/users';
 
-type UserProps = Pick<User, 'name' | 'avatar'> & { refetch: () => void };
+type UserProps = Pick<User, 'name' | 'avatar'> & { onLogout: () => void };
 
-export const CurrentUser = ({ avatar, name, refetch }: UserProps) => (
+export const CurrentUser = ({ avatar, name, onLogout }: UserProps) => (
   <Box width="medium" direction="row" align="center" justify="between">
     <Box round height="xsmall" width="xsmall" margin={{ right: 'small' }}>
       <Image fit="contain" src={avatar} alt="Avatar" />
     </Box>
     <Box tag="span">{name}</Box>
-    <Button
-      label="Logout"
-      onClick={() => {
-        localStorage.removeItem('token');
-        refetch();
-      }}
-    />
+    <Button label="Logout" onClick={onLogout} />
   </Box>
 );
 
@@ -28,8 +22,19 @@ type MeProps = {
 };
 
 export const Me = ({ signingIn, requestCode }: MeProps) => {
-  const { loading, data, refetch } = useQuery(USERS_QUERY);
-  console.log(loading, data, refetch);
+  const { loading, data } = useQuery(USERS_QUERY);
+  const client = useApolloClient();
+  const logout = () => {
+    localStorage.removeItem('token');
+    client.writeQuery({
+      query: USERS_QUERY,
+      data: {
+        totalUsers: 0,
+        allUsers: [],
+        me: null,
+      },
+    });
+  };
   return (
     <Box
       width="medium"
@@ -42,13 +47,13 @@ export const Me = ({ signingIn, requestCode }: MeProps) => {
         <CurrentUser
           avatar={data.me.avatar}
           name={data.me.name}
-          refetch={refetch}
+          onLogout={logout}
         />
       ) : loading ? (
         <Box>Loading... </Box>
       ) : (
         <Button
-          data-testId="signin"
+          data-testid="signin"
           label="Sign In with Github"
           disabled={signingIn}
           onClick={requestCode}

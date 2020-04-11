@@ -10,7 +10,7 @@ export default function App() {
     <Grommet theme={theme} full>
       <Router>
         <Route path="/" component={AuthorizedUser} />
-        <Route path="/home" component={UsersPage} />
+        <Route path="/" component={UsersPage} />
       </Router>
     </Grommet>
   );

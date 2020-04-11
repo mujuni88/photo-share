@@ -24,9 +24,16 @@ export const USERS_QUERY = gql`
     avatar
   }
 `;
-type UsersProps = {
-  users: User[];
+
+export interface Users {
   totalUsers: number;
+  allUsers: User[];
+  me: User;
+}
+
+type UsersProps = {
+  users?: User[];
+  totalUsers?: number;
 };
 
 type FailureProps = {
@@ -37,7 +44,7 @@ export const Failure = ({ error }: FailureProps) => (
 );
 export const Empty = () => <Box>No users yet</Box>;
 export const Loading = () => <Box>Loading users ...</Box>;
-export const Success = ({ users, totalUsers }: UsersProps) => (
+export const Success = ({ users = [], totalUsers = 0 }: UsersProps) => (
   <Box justify="start">
     <Box tag="h3">Total Users {totalUsers}</Box>
     <UserList users={users} />
@@ -45,7 +52,9 @@ export const Success = ({ users, totalUsers }: UsersProps) => (
 );
 
 export const Users = () => {
-  const { loading, data, error } = useQuery(USERS_QUERY);
+  const { loading, data, error } = useQuery<Users>(USERS_QUERY, {
+    fetchPolicy: 'cache-first',
+  });
 
   if (error) {
     return <Failure error={error} />;
@@ -62,7 +71,7 @@ export const Users = () => {
   return (
     <>
       <AddFakeUsers />
-      <Success users={data.allUsers} totalUsers={data.totalUsers} />
+      <Success users={data?.allUsers} totalUsers={data?.totalUsers} />
     </>
   );
 };
