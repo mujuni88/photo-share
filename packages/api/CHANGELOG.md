@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.8.0](https://github.com/mujuni88/photo-share/compare/v0.6.0...v0.8.0) (2020-04-11)
+
+
+### Features
+
+* graphql caching ([aa7c756](https://github.com/mujuni88/photo-share/commit/aa7c756ea16beddda3a0eff11b54f9f49186822d))
+
+
+
+
+
 # [0.7.0](https://github.com/mujuni88/photo-share/compare/v0.6.0...v0.7.0) (2020-04-10)
 
 **Note:** Version bump only for package @photo-share/api
