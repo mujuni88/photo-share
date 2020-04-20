@@ -8,8 +8,10 @@
     "lerna": "^3.20.2"
   },
   "scripts": {
-    "lint": "lerna run lint",
     "start": "lerna run start",
-    "test": "lerna run test"
+    "test": "lerna run test",
+    "lint": "lerna run lint",
+    "format": "lerna run format",
+    "version": "lerna version"
   }
 }

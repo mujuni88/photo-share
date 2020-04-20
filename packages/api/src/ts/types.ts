@@ -3,4 +3,9 @@ export type PhotoCategory =
   | 'POTRAIT'
   | 'ACTION'
   | 'LANDSCAPE'
-  | 'GRAPHIC';
+  | 'GRAPHIC'
+
+export enum SubscriptionKey {
+  PHOTO_ADDED = 'photo-added',
+  NEW_USER = 'user-fake-added',
+}

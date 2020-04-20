@@ -1,7 +1,7 @@
 {
   "name": "@photo-share/api",
   "private": true,
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "GraphQL Server",
   "keywords": [
     "graphql",
@@ -15,7 +15,7 @@
     "test": "echo \"Error: no tests yet\"",
     "start": "nodemon",
     "build": "rimraf ./build && tsc",
-    "prettify": "prettier --write \"./*/**/*.{js,ts,tsx}\"",
+    "format": "prettier --write \"./*/**/*.{js,ts,tsx}\"",
     "lint": "tsc --noEmit && eslint --fix \"./*/**/*.{js,ts,tsx}\" && echo 'Lint complete.'"
   },
   "devDependencies": {

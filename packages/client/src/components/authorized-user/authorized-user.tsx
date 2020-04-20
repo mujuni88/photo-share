@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import queryString from 'query-string';
-import { useMutation } from '@apollo/client';
-import { useLocation, useHistory } from 'react-router-dom';
-import { Me } from '../me/me';
-import { USERS_QUERY, Users } from '../../components/users';
-import gql from 'graphql-tag';
+import React, { useState, useEffect } from 'react'
+import queryString from 'query-string'
+import { useMutation } from '@apollo/client'
+import { useLocation, useHistory } from 'react-router-dom'
+import { Me } from '../me/me'
+import { USERS_QUERY, Users } from '../../components/users'
+import gql from 'graphql-tag'
 
 export const GITHUB_AUTH_MUTATION = gql`
   mutation githubAuth($code: String!) {
@@ -17,16 +17,16 @@ export const GITHUB_AUTH_MUTATION = gql`
       }
     }
   }
-`;
+`
 
 export const AuthorizedUser = () => {
-  const [signingIn, setSignIn] = useState(false);
-  const location = useLocation();
-  const history = useHistory();
+  const [signingIn, setSignIn] = useState(false)
+  const location = useLocation()
+  const history = useHistory()
   const [githubAuth] = useMutation(GITHUB_AUTH_MUTATION, {
     update(cache, { data: { githubAuth } }) {
-      localStorage.setItem('token', githubAuth.token);
-      const data = cache.readQuery<Users>({ query: USERS_QUERY });
+      localStorage.setItem('token', githubAuth.token)
+      const data = cache.readQuery<Users>({ query: USERS_QUERY })
       if (data && Array.isArray(data)) {
         cache.writeQuery({
           query: USERS_QUERY,
@@ -39,30 +39,30 @@ export const AuthorizedUser = () => {
                 }
               : {},
           },
-        });
+        })
       }
 
-      history.replace('/');
-      setSignIn(false);
+      history.replace('/')
+      setSignIn(false)
     },
-  });
+  })
   const requestCode = () => {
-    const clientId = process.env.REACT_APP_GITHUB_CLIENT_ID;
-    window.location.href = `https://github.com/login/oauth/authorize?client_id=${clientId}&scope=user`;
-  };
+    const clientId = process.env.REACT_APP_GITHUB_CLIENT_ID
+    window.location.href = `https://github.com/login/oauth/authorize?client_id=${clientId}&scope=user`
+  }
 
   useEffect(() => {
     function checkIn() {
-      const { code } = queryString.parse(location.search);
+      const { code } = queryString.parse(location.search)
       if (code) {
-        console.log('@@code', code);
-        githubAuth({ variables: { code } });
-        setSignIn(true);
+        console.log('@@code', code)
+        githubAuth({ variables: { code } })
+        setSignIn(true)
       }
     }
 
-    checkIn();
-  }, [githubAuth, location.search]);
+    checkIn()
+  }, [githubAuth, location.search])
 
-  return <Me signingIn={signingIn} requestCode={requestCode} />;
-};
+  return <Me signingIn={signingIn} requestCode={requestCode} />
+}

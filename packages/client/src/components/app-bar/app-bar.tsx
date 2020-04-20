@@ -1,6 +1,6 @@
-import React, { ReactNode } from 'react';
-import { Box, BoxProps } from 'grommet';
-type AppBarProps = BoxProps & { children: ReactNode };
+import React, { ReactNode } from 'react'
+import { Box, BoxProps } from 'grommet'
+type AppBarProps = BoxProps & { children: ReactNode }
 
 export const AppBar = (props: AppBarProps) => (
   <Box
@@ -13,4 +13,4 @@ export const AppBar = (props: AppBarProps) => (
     elevation="medium"
     {...props}
   />
-);
+)

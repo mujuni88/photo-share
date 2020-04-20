@@ -36,6 +36,7 @@ type Photo {
   category: PhotoCategory!
   userID: User!
   taggedUsers: [User!]!
+  postedBy: User!
   created: DateTime!
 }
 
@@ -60,4 +61,9 @@ type Mutation {
   githubAuth(code: String!): AuthPayload
   addFakeUsers(count: Int = 1): [User!]!
   fakeUserAuth(githubLogin: ID!): AuthPayload!
+}
+
+type Subscription {
+  newPhoto: Photo!
+  newUser: User!
 }

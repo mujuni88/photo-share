@@ -1,10 +1,10 @@
-import React from 'react';
-import { useQuery, useApolloClient } from '@apollo/client';
-import { Box, Image, Button } from 'grommet';
-import { User } from '@photo-share/api/src/ts/interfaces';
-import { USERS_QUERY } from '../../components/users';
+import React from 'react'
+import { useQuery, useApolloClient } from '@apollo/client'
+import { Box, Image, Button } from 'grommet'
+import { User } from '@photo-share/api/src/ts/interfaces'
+import { USERS_QUERY } from '../../components/users'
 
-type UserProps = Pick<User, 'name' | 'avatar'> & { onLogout: () => void };
+type UserProps = Pick<User, 'name' | 'avatar'> & { onLogout: () => void }
 
 export const CurrentUser = ({ avatar, name, onLogout }: UserProps) => (
   <Box width="medium" direction="row" align="center" justify="between">
@@ -14,18 +14,18 @@ export const CurrentUser = ({ avatar, name, onLogout }: UserProps) => (
     <Box tag="span">{name}</Box>
     <Button label="Logout" onClick={onLogout} />
   </Box>
-);
+)
 
 type MeProps = {
-  signingIn: boolean;
-  requestCode: () => void;
-};
+  signingIn: boolean
+  requestCode: () => void
+}
 
 export const Me = ({ signingIn, requestCode }: MeProps) => {
-  const { loading, data } = useQuery(USERS_QUERY);
-  const client = useApolloClient();
+  const { loading, data } = useQuery(USERS_QUERY)
+  const client = useApolloClient()
   const logout = () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem('token')
     client.writeQuery({
       query: USERS_QUERY,
       data: {
@@ -33,8 +33,8 @@ export const Me = ({ signingIn, requestCode }: MeProps) => {
         allUsers: [],
         me: null,
       },
-    });
-  };
+    })
+  }
   return (
     <Box
       width="medium"
@@ -60,5 +60,5 @@ export const Me = ({ signingIn, requestCode }: MeProps) => {
         />
       )}
     </Box>
-  );
-};
+  )
+}

@@ -1,11 +1,11 @@
-import React from 'react';
-import wait from 'waait';
-import { render, screen, act } from '@testing-library/react';
-import { MockedProvider } from '@apollo/client/testing';
-import faker from 'faker';
+import React from 'react'
+import wait from 'waait'
+import { render, screen, act } from '@testing-library/react'
+import { MockedProvider } from '@apollo/client/testing'
+import faker from 'faker'
 
 // The component AND the query need to be exported
-import { USERS_QUERY, Users } from './';
+import { USERS_QUERY, Users } from './'
 
 const mocks = [
   {
@@ -35,7 +35,7 @@ const mocks = [
       },
     }),
   },
-];
+]
 
 describe('users', () => {
   it('should render users', async () => {
@@ -43,11 +43,11 @@ describe('users', () => {
       <MockedProvider mocks={mocks} addTypename={false}>
         <Users />
       </MockedProvider>
-    );
+    )
 
-    expect(screen.getByText(/loading/i)).toBeTruthy();
+    expect(screen.getByText(/loading/i)).toBeTruthy()
 
-    await act(async () => await wait(0));
+    await act(async () => await wait(0))
 
     expect(container).toMatchInlineSnapshot(`
       <div>
@@ -108,6 +108,6 @@ describe('users', () => {
           </ul>
         </div>
       </div>
-    `);
-  });
-});
+    `)
+  })
+})

@@ -1,8 +1,8 @@
-import React from 'react';
-import { Box, Image } from 'grommet';
-import { User } from '@photo-share/api/src/ts/interfaces';
+import React from 'react'
+import { Box, Image } from 'grommet'
+import { User } from '@photo-share/api/src/ts/interfaces'
 
-type UserItemProps = Pick<User, 'name' | 'avatar'>;
+type UserItemProps = Pick<User, 'name' | 'avatar'>
 
 export const UserItem = ({ name, avatar }: UserItemProps) => {
   return (
@@ -19,5 +19,5 @@ export const UserItem = ({ name, avatar }: UserItemProps) => {
       </Box>
       <Box tag="span">{name}</Box>
     </Box>
-  );
-};
+  )
+}

@@ -1,21 +1,21 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import fetch from 'node-fetch';
+import fetch from 'node-fetch'
 
 export interface Credentials {
-  client_id: string;
-  client_secret: string;
-  code: string;
+  client_id: string
+  client_secret: string
+  code: string
 }
 
 export interface Token {
-  access_token: string;
+  access_token: string
 }
 
 export interface GithubUser {
-  message: string;
-  avatar_url: string;
-  login: string;
-  name: string;
+  message: string
+  avatar_url: string
+  login: string
+  name: string
 }
 
 export enum URL {
@@ -34,26 +34,26 @@ export const requestGithubToken = async (
         Accept: 'application/json',
       },
       body: JSON.stringify(credentials),
-    });
+    })
 
-    return await resolve.json();
+    return await resolve.json()
   } catch (e) {
-    throw new Error(JSON.stringify(e));
+    throw new Error(JSON.stringify(e))
   }
-};
+}
 
 export const requestGithubUserAccount = async (
   token: string
 ): Promise<GithubUser> => {
-  const resolve = await fetch(`${URL.USER}${token}`);
-  return await resolve.json();
-};
+  const resolve = await fetch(`${URL.USER}${token}`)
+  return await resolve.json()
+}
 
 export const authorizeWithGithub = async (
   credentials: Credentials
 ): Promise<GithubUser & Token> => {
-  const { access_token } = await requestGithubToken(credentials);
-  const githubUser = await requestGithubUserAccount(access_token);
+  const { access_token } = await requestGithubToken(credentials)
+  const githubUser = await requestGithubUserAccount(access_token)
 
-  return { ...githubUser, access_token };
-};
+  return { ...githubUser, access_token }
+}
